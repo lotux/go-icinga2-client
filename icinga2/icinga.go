@@ -98,6 +98,12 @@ func (s *WebClient) UpdateObject(path string, create interface{}) error {
 	return s.handleResults("update", path, resp, &results, &errmsg, err)
 }
 
+func (s *WebClient) DoAction( path string, action interface{}) error {
+	var results, errmsg Results
+	resp, err := s.napping.Post(s.URL+"/v1/actions"+path, action, &results, &errmsg)
+	return s.handleResults("action", path, resp, &results, &errmsg, err)
+}
+
 func (s *WebClient) handleResults(typ, path string, resp *napping.Response, results, errmsg *Results, oerr error) error {
 	var resultReport string
 
